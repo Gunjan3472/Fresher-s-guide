@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: { json: () => any; }) {
   try {
-    // 1. Grab the laptop data sent from your Step 4 frontend
     const data = await request.json();
 
-    // 2. Forward that exact data to your Python backend
-    // (We will build the Python backend in Part 2, it runs on port 5000)
-    const pythonResponse = await fetch("http://127.0.0.1:5000/predict", {
+    // 1. Point to the live URL if on Vercel, OR local port 5000 if on your computer
+    const backendUrl = process.env.PYTHON_BACKEND_URL || "http://127.0.0.1:5000";
+
+    // 2. Fetch from the dynamic URL
+    const pythonResponse = await fetch(`${backendUrl}/predict`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,10 +16,8 @@ export async function POST(request: { json: () => any; }) {
       body: JSON.stringify(data),
     });
 
-    // 3. Get the predicted price back from Python
     const predictionData = await pythonResponse.json();
 
-    // 4. Send the price back to your Next.js frontend to display!
     return NextResponse.json(predictionData, { status: 200 });
 
   } catch (error) {
