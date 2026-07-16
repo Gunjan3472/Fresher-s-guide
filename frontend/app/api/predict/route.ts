@@ -4,10 +4,14 @@ export async function POST(request: { json: () => any; }) {
   try {
     const data = await request.json();
 
-    // 1. Point to the live URL if on Vercel, OR local port 5000 if on your computer
-    const backendUrl = process.env.PYTHON_BACKEND_URL || "https://fresher-s-guide.onrender.com";
+    const backendUrl = process.env.PYTHON_BACKEND_URL;
+    if (!backendUrl) {
+      return NextResponse.json(
+        { error: "Missing PYTHON_BACKEND_URL environment variable." },
+        { status: 500 }
+      );
+    }
 
-    // 2. Fetch from the dynamic URL
     const pythonResponse = await fetch(`${backendUrl}/predict`, {
       method: "POST",
       headers: {
