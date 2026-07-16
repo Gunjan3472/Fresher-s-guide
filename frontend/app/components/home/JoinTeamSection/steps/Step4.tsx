@@ -21,7 +21,7 @@ export default function Step4({ formData, setFormData }: Props) {
     setPrice(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch("/api/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function Step4({ formData, setFormData }: Props) {
       
     } catch (err) {
       console.error("Prediction Error:", err);
-      setError("Could not get a prediction. Check if your Flask server is running.");
+      setError("Could not get a prediction. Check if your backend is running.");
     } finally {
       setLoading(false);
     }
