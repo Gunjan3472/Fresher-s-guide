@@ -75,7 +75,7 @@ export default function Step4({ formData, setFormData }: Props) {
             : "bg-white/30 text-black/50 cursor-not-allowed"
         }`}
       >
-        {loading ? "Calculating..." : "Predict Price Now"}
+        {loading ? "Calculating..." : "Predict Price"}
       </button>
     </div>
   );
