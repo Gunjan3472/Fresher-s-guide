@@ -64,7 +64,7 @@ export default function Step4({ formData, setFormData }: Props) {
           <p className="text-red-400 text-sm text-center">{error}</p>
         )}
       </div>
-// This is a single-line comment
+{/* This is a single-line comment */}
       {/* Predict Button */}
       <button
         onClick={handleSubmit}
